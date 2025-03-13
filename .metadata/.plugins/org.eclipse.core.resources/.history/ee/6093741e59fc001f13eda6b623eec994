@@ -1,0 +1,97 @@
+$(document).ready(function() {
+	console.log("dashboard");
+	checkSession();
+	
+	// Sample notifications array
+	let notifications = [
+	    { id: 1, message: "Your order #1234 has been shipped!", type: "info" },
+	    { id: 2, message: "New promotion available for you!", type: "alert" },
+	    { id: 3, message: "Item #5678 is back in stock.", type: "info" }
+	];
+	// Example to show a notification (simulate server notifications)
+	setInterval(() => {
+	    const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+	    showNotification(randomNotification.message, randomNotification.type);
+	}, 15000);  // Show a random notification every 15 seconds
+});
+
+async function checkSession() {
+    try {
+	    const response = await fetch('/user/session', {
+	     	method: 'GET'
+	    });
+       const data = await response.json();
+       if (data.success) {
+           	console.log(data);
+			console.log(window.location.pathname);
+			sessionStorage.setItem("user", JSON.stringify({ email: data.data.email, id: data.data.id, name: data.data.name, partnerName: data.data.partner_name, address: data.data.address, image: data.data.image}));
+			console.log(sessionStorage);
+			if(window.location.pathname == "/home.html") window.location.href = '../html/dashboard.html';
+       } else {
+			if(window.location.pathname != "/home.html") {
+				window.location.href = '../home.html'; // Redirect to home page
+				alert('Session expired or unauthorized.');
+			}
+       }
+   } catch (error) {
+       console.log(error);
+       alert(error.message);
+   }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        let navLinks = document.querySelectorAll(".user-nav-menu a");
+        console.log("Nav links found:", navLinks.length); // Debugging log
+        if (navLinks.length === 0) {
+            console.error("No nav links found. Check the class names or script execution order.");
+            return;
+        }
+        let currentPage = window.location.pathname.split("/").pop();
+        navLinks.forEach(link => {
+            let linkPath = link.getAttribute("href").split("/").pop();
+            if (currentPage === linkPath) {
+                navLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+            }
+        });
+    }, 100); // Small delay to ensure DOM is loaded
+});
+
+
+// Function to show notifications in the dropdown and as toast
+function showNotification(message, type) {
+    // Add notification to the dropdown
+    const listItem = document.createElement('li');
+    listItem.classList.add(type);
+    listItem.innerText = message;
+    document.getElementById('notification-list').appendChild(listItem);
+
+    // Add the notification as a toast on screen
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.classList.add(type);
+    notification.innerText = message;
+    document.getElementById('notification-container').appendChild(notification);
+
+    // Update notification count on the bell
+    const currentCount = parseInt(document.getElementById('notification-count').innerText);
+    document.getElementById('notification-count').innerText = currentCount + 1;
+
+    // Remove the notification after 5 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 5000);
+}
+
+// Show the notification dropdown when the bell is clicked
+$('#notification-bell').on('click', function() {
+    $('#notification-dropdown').toggle(); // Correct jQuery method to show/hide the dropdown
+});
+
+
+// Clear all notifications
+function clearNotifications() {
+    document.getElementById('notification-list').innerHTML = '';  // Clear dropdown
+    document.getElementById('notification-count').innerText = '0'; // Reset notification count
+}

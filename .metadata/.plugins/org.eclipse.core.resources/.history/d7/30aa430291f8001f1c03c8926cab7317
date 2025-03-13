@@ -1,0 +1,12 @@
+$(document).ready(function() {
+	let intervalSetter = setInterval(function () {
+		let user = JSON.parse(sessionStorage.getItem("user"));
+		if (user) {
+			clearInterval(intervalSetter); // Stop checking once data is available
+			if(user.name) $("#name").val(user.name);
+			if(user.partner_name) $("#pname").val(user.partner_name);
+			if(user.address) $("#address").val(user.address);
+			$("#email").val(user.email);
+		}
+	}, 1000);
+});

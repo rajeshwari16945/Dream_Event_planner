@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/vendorCheckSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/VendorDashboard.js"></script>
+		<script>
+		  fetch('vendorNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main>
+			<div class="vendor-dashboard-page">
+				<div class="dashboard-profile-section1">
+					<div class="vendor-dashboard-profile">
+						<div class="profile-pic" id="profilePic">
+							<!--- image -->
+						</div>
+						<div class="profile-details">
+							<p id="display-vendor-name"></p>
+							<p id="display-vendor-company"></p>
+							<a href="VendorSettings.html" class="dashboard-Profile-update-button">Update Profile</a>
+						</div>
+					</div>
+					<div class="vendor-dashboard-welcome">
+						<div class="vendor-dashboard-heading">
+							<h1 class="vendor-welcome-heading">Advertise on The Dream Event Planner</h1>
+							<p class="vendor-welcome-msg">Don't just book more weddings... build real relationships too!</p>
+						</div>
+					</div>
+				</div>
+				<div class="dashboard-section2">
+					<div>
+						<h1 id="service-name"></h1>
+						<p id="service-count"></p>
+						<a href="service.html" id="service-name-button"></a>
+					</div>
+					<div>
+						<h1>Your Bookings</h1>
+						<p id="bookingCount"></p>
+						<a href="Bookings.html">Accept/Reject</a>
+					</div>
+					<div>
+						<h1>Completed Weddings</h1>
+						<p id="completedWeddings"></p>
+						<a href="Bookings.html">Bookings</a>
+					</div>
+					<div>
+						<h1>Your Rating</h1>
+						<p>*****</p>
+						<a href="">Reviews</a>
+					</div>
+				</div>
+				<div class="vendor-redirect-links">
+					<div class="redirect-service-link">
+						<div class="servicelink-sec1">
+							<div class="servicelink-heading">
+								<h1>Service</h1>
+								<p>Manage and update your services effortlessly.</p>
+							</div>
+							<div class="servicelink-button">
+								<a href="service.html">Add Service</a>
+							</div>
+						</div>
+						<div class="servicelink-image">
+							<img src="../images/venue-service-add.jpg" alt="service-venue" />
+						</div>
+					</div>
+					<div class="redirect-booking-link">
+						<div class="bookinglink-sec1">
+							<div class="bookinglink-heading">
+								<h1>Bookings</h1>
+								<p>Manage and track all your bookings efficiently.</p>
+							</div>
+							<div class="bookinglink-button">
+								<a href="Bookings.html">Approve Bookings</a>
+							</div>
+						</div>
+						<div class="bookinglink-image">
+							<img src="../images/bookinglink-add.jpg" alt="service-venue" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

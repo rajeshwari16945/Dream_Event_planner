@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/EachService.js"></script>
+		<script>
+		  fetch('userNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main>
+			<div class="each-service-page">
+			    <div class="service-back">
+			        <a id="backLink">&lt Back to Services</a>
+			    </div>
+				<div id="section1" class="eachservice-images-section">
+					<div class="carousel">
+						<div class="carousel-inner" id="carousel-inner">
+							<!-- Images Here -->
+						</div>
+						<button class="prev">&#10094;</button>
+						<button class="next">&#10095;</button>
+					</div>
+				</div>
+				<div class="eachservice-content-section">
+					<div class="left-service-details">
+						<div class="service-name-email">
+							<h1 id="service-name"></h1>
+							<h3 id="service-title"></h3>
+						</div>
+						<div class="service-price-guests">
+							<h3 id="service-price"></h3>
+							<h3 id="service-guest"></h3>
+						</div>
+						<h1 style="color: #333;">About this vendor</h1>
+						<div class="service-about">
+							<div class="left-vendor">
+								<div id="service-vendor-image" >
+									<!-- Vendor Image displayed-->
+								</div>
+								<p id="vendor-name"></p>
+								<p>EVENTS DIRECTOR</p>
+							</div>
+							<div class="right-summary">
+								<p id="service-summary"></p>	
+							</div>
+						</div>
+					</div>
+					<div class="right-request-form">
+						<form id="booking-form">
+							<h1>Start Booking</h1>
+							<p>Use this form to submit your details to vendor to check on booking.</p>
+							<div class="form-vendor-display">
+								<div id="request-form-image" class="left">
+									<!-- Vendor Image displayed-->
+								</div>
+								<div class="right">
+									<p id="vendor-name-form"></p>
+									<p>EVENTS DIRECTOR</p>
+								</div>
+							</div>
+							<div class="full-name">
+								<div>
+									<label>First Name</label>
+									<input type="text" id="first_name"/>
+									<p class="errors" id="error-fname"> </p>
+								</div>
+								<div>
+									<label>Last Name</label>
+									<input type="text" id="last_name"/>
+									<p class="errors" id="error-lname"> </p>
+								</div>
+							</div>
+							<div>
+								<label for="event-date">Wedding Date</label>
+								<input type="date" id="event-date">
+								<p class="errors" id="error-date"> </p>
+							</div>
+							<div>
+								<label>Number of Guests</label>
+								<input type="number" id="guest"/>
+								<p class="errors" id="error-guest"> </p>
+							</div>
+							<div>
+								<label>Introduce yourself and share your wedding vision</label>
+								<textarea id="vision"></textarea>
+								<p class="errors" id="error-vision"> </p>
+							</div>
+							<div>
+								<button class="booking-request-button" id="requestButton">Request Booking</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

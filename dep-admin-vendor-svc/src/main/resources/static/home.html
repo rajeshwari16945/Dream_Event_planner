@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserHome.js"></script>
+	</head>
+	<body>
+		<main>
+			<div id="section1" class="heading">
+				<div class="float-left">
+					<h2>Dream Event Planner</h2>
+				</div>
+				<div class="float-right">
+					<button id="loginBtn" class="loginPopupButton">Log In</button>
+				</div>
+			</div>
+			<div id="section2" class="reg-user-form-section">
+				<h1 class="user-home-heading"> Your dream wedding team and<br>all the little moments that matter.</h1>
+				<strong class="user-home-message1">Sign up today!</strong>
+				<p class="user-home-message2">By clicking ‘Sign up’, you agree to The Dream Event Planner Privacy Policy and Terms of Use.</p>
+				<form class="form-controls" id="form-controls">
+					<div class="email-user">
+						<input type="text" id="email" placeholder=" " />
+						<label>Email</label>
+						<p id="error-email"> </p>
+					</div>
+					<div class="pswd-user">
+						<input type="password" id="password" placeholder=" " />
+						<label>Password</label>
+						<p id="error-password"> </p>
+					</div>
+					<button id="user-signup-submit" class="user-signup-button">Sign up</button>
+				</form>
+				<p class="user-home-message3">Are you a vendor?  <a href="vendor.html">Start here</a></p>
+				<h1 class="user-home-message3">Find vendors for every event</h1>
+				<p class="user-home-message4">Explore highly-rated professionals for any budget, style, and vision.</p>
+			</div>	
+			<!-- Popup Modal -->
+			<div id="loginPopupModal" class="loginPopupModal">
+				<div class="login-modal-content">
+					<span class="login-close-btn" id="closeBtn">&times;</span>
+					<h2 class="heading-login">Log into your account</h2>
+					<p id="login-error" class="vendor-login-form-error"><p>
+					<form class="login-form" id="login-form">
+						<div>
+							<input type="text" id="emailInput" placeholder=" ">
+							<label>Enter your Email</label>
+							<p id="error-email-input"></p>
+						</div>
+						<div>
+							<input type="password" id="passwordInput" placeholder=" ">
+							<label>Enter your password</label>
+							<p id="error-password-input"></p>
+						</div>
+						<button type="submit" class="login-submit-btn" id="login-submit-btn">Log in</button>
+					</form>
+					<p>Are you a vendor?  <a href="vendor.html">Start here</a></p>
+				</div>
+			</div>
+		</main>	
+	</body>
+<html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/vendorCheckSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/VendorSettings.js"></script>
+		<script>
+		  fetch('vendorNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main class="vendor-setting-page-main">
+			<div class="vendor-settings-heading">
+				<h1>Account Settings</h1>
+				<p>Edit your name, avatar etc...</p>
+			</div>
+			<div class="setting-page">
+				<div class="settings-left-form">
+					<form class="vendor-update-form">
+						<div class="fname">
+							<input type="text" id="fsname" placeholder=" " />
+							<label for="fsname">First Name</label>
+							<p id="error-fname"> </p>
+						</div>
+						<div class="lname">
+							<input type="text" id="lsname" placeholder=" " />
+							<label>Last Name</label>
+							<p id="error-lname"> </p>
+						</div>
+						<div class="phone">
+							<input type="text" id="phone" placeholder=" "/>
+							<label>Phone</label>
+							<p id="error-phone"> <p>
+						</div>
+						<div class="email">
+							<input type="text" id="email" placeholder=" " disabled/>
+							<label>Email</label>
+							<p id="error-email"> </p>
+						</div>
+						<div>
+							<input type="text" id="business" placeholder=" "/>
+							<label>Business</label>
+							<p id="error-business"> </p>
+						</div>
+						<div>
+							<button id="cancel" class="vendorcancel-settings-button">Cancel</button>
+							<button id="Update" class="vendorupdate-settings-button">Update</button>
+						</div>
+					</form>
+				</div>
+				<div class="settings-right-form">
+					<div class="preview-container" id="preview">
+					    <p>No image selected</p>
+					</div>
+					<button id="changePhoto" class="vendorpic-settings-button">Change Photo</button>
+					<input type="file" id="image" accept="image/*" style="display: none;">
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

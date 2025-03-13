@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/vendorCheckSession.js"></script>
+		<script src="../javascript/VendorHome.js"></script>
+	</head>
+	<body>
+		<div class= "homePage">
+			<main>
+				<div id="section1" class="heading">
+					<div class="float-left">
+						<h2>Dream Event Planner</h2>
+						<h4>Signup to advertise</h4>
+					</div>
+					<div class="float-right">
+						<button id="loginBtn" class="loginPopupButton">Log In</button>
+					</div>
+				</div>
+				<div id="section2" class="reg-form-section">
+					<div class="registerForm">
+						<h3>Advertise on The Dream Event Planner</h3>
+						<p>Fill out this form to get started.</p>
+						<form class="register-form-vendor" id="register-form-vendor">
+							<div class="input-row">
+								<div class="fname">
+									<input type="text" id="fsname" placeholder=" " />
+									<label for="fsname">First Name</label>
+									<p id="error-fname"> </p>
+								</div>
+								<div class="lname">
+									<input type="text" id="lsname" placeholder=" " />
+									<label>Last Name</label>
+									<p id="error-lname"> </p>
+								</div>
+							</div>
+							<div class="input-row">
+								<div class="company">
+									<input type="text" id="company"  placeholder=" " />
+									<label>Company</label>
+									<p id="error-company"> </p>
+								</div>
+								<div class="category">
+									<select id="category">
+										<option value="" disabled selected hidden></option>
+										<option value="Venue">Venue</option>
+										<option value="Catering">Caterers</option>
+										<option value="Photographer">Photographers</option>
+									</select>
+									<label>Business Category</label>
+									<p id="error-category"> </p>
+								</div>
+							</div>
+							<div class="input-row">
+								<div class="phone">
+									<input type="text" id="phone" placeholder=" "/>
+									<label>Phone</label>
+									<p id="error-phone"> <p>
+								</div>
+								<div class="email">
+									<input type="text" id="email" placeholder=" "/>
+									<label>Email</label>
+									<p id="error-email"> </p>
+								</div>
+							</div>
+							<div class="input-row">
+								<div class="password">
+									<input type="password" id="password" placeholder=" "/>
+									<label>Password</label>
+									<p id="error-password"> <p>
+								</div>
+								<div class="confirm-password">
+									<input type="password" id="confirm-password" placeholder=" "/>
+									<label>Confirm Password</label>
+									<p id="error-confirm-password"> </p>
+								</div>								
+							</div>
+							<p><button id="submitForm" class="submitFormButton">Start Your Business</button></p>
+						</form>
+					</div>
+					<div class="imageChange">
+						<img id="scrollImage" class="randImage">
+					</div>
+				</div>
+				<div class="vendor-home-message">
+					<h1>The Platform built by purpose.</h1>
+					<p>Become part of a network of entrepreneurs while connecting with the largest audience of engaged couples worldwide.</p>
+				</div>
+				<!-- Popup Modal -->
+				<div id="loginPopupModal" class="loginPopupModal">
+					<div class="login-modal-content">
+				       	<span class="login-close-btn" id="closeBtn">&times;</span>
+				        <h2 class="heading-login">Log into your account</h2>
+						<p id="login-error" class="vendor-login-form-error"><p>
+						<form class="login-form" id="login-form">
+							<div>
+								<input type="text" id="emailInput" placeholder=" ">
+								<label>Enter your Email</label>
+								<p id="error-email-input"></p>
+							</div>
+							<div>
+								<input type="password" id="passwordInput" placeholder=" ">
+								<label>Enter your password</label>
+								<p id="error-password-input"></p>
+							</div>
+							<button type="submit" id="login-submit-btn" class="login-submit-btn">Log in</button>
+						</form>
+				    </div>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

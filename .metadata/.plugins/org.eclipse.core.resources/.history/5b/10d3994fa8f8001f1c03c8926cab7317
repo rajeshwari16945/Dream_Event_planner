@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/UserDashboard.js"></script>
+		<script>
+		  fetch('userNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main>
+			<div class="dashboard-page">
+				<div class="dashboard-section1">
+					<div class="dashboard-heading">
+						<h1 class="welcome-heading">💗Two Hearts, One Love💗</h1>
+						<p class="welcome-msg">Welcome to The Dream Event Planner, your all-in-one wedding planning destination!</p>
+					</div>
+					<div class="dashboard-image">
+						<img src="../images/profilepic2.jpeg" alt="Dashboard image"></img>
+						<button class="dashboard-photo-button">+ Add a Photo</button>
+						<input type="file" id="image" accept="image/*" style="display: none;">
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

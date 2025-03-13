@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script>
+		    document.addEventListener("DOMContentLoaded", function () {
+		        // Get the current page URL
+		        let currentPage = window.location.pathname.split("/").pop();
+		        // Select all navigation links
+		        let navLinks = document.querySelectorAll(".user-nav-menu a");
+		        // Loop through links and add the 'active' class if the href matches the page
+		        navLinks.forEach(link => {
+		            if (link.getAttribute("href") === currentPage) {
+		                link.classList.add("active");
+		            }
+		        });
+		    });
+		</script>
+	</head>
+	<body>
+		<div class="user_nav_main">
+			<h1 class="top-heading">Dream Event Planner</h1>
+			<div class="topnav">
+                <div class="float-left">
+					<ul class="user-nav-menu">
+	                    <li><a class="nav-items active" href="dashboard.html">Dashboard</a></li>
+	                    <li><a class="nav-items" href="invitation.html">Invitation</a></li>
+						<li><a class="nav-items" href="BudgetPlanner.html">Planning Tools</a></li>
+	                    <li class="dropdown">
+							<a href="">Vendors</a>
+							<ul class="dropdown-menu">
+				                <li><a href="VendorList.html?type=Venue">Venue</a></li>
+				                <li><a href="VendorList.html?type=Catering">Catering</a></li>
+				                <li><a href="VendorList.html?type=Photographer">Photographers</a></li>
+				            </ul>
+						</li>
+					</ul>
+                </div>
+                <div class="float-right">
+					<ul class="user-nav-menu">
+						<li class="dropdown">
+							<a href="" class="account-menu">👤Your Account</a>
+							<ul class="dropdown-menu">
+								<li><a href="UserSettings.html">Account Settings</a></li>
+								<li><button id="logoutButton">Log out</button></li>
+							</ul>
+						</li>
+					</ul>
+                </div>
+            </div>
+		</div>
+	</body>
+</html>

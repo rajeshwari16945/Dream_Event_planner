@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/vendorCheckSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/serviceJQ.js"></script>
+		<script>
+		  fetch('vendorNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main>
+			<div class="vendors-page">
+				<div class="service-count-message">
+					<p id="countMessage"></p>
+				</div>
+				<div class="service-add-div">
+					<button id="addNewServiceBtn" class="service-add-button"></button>
+				</div>
+				<div class="display-list">
+					<div id="serviceListSection2" class="cards-section"  style="padding-top: 300px;">
+				</div>
+				<div class="service-form-popup-modal" id="serviceFormPopupModal">
+					<div class="service-display-form" id="serviceDisplayForm">
+						<h1 id="form-heading" class="form-heading"></h1>
+						<form class="vendor-service-form" id="vendorServiceForm">
+							<span class="service-form-close-btn" id="closeBtn">&times;</span>
+							<div>
+								<label for="name">Name</label>
+								<input type="text" id="name"/>
+								<p id="error-name"> </p>
+							</div>
+							<div>
+								<label for="title">Title</label>
+								<input type="text" id="title"/>
+								<p id="error-title"> </p>
+							</div>
+							<div>
+								<label for="address">Address</label>
+								<textarea id="address"></textarea>
+								<p id="error-address"> </p>
+							</div>
+							<div>
+								<label for="summary">Summary</label>
+								<textarea id="summary"></textarea>
+								<p id="error-summary"> </p>
+							</div>
+							<div class="input-row" id="venuefields">
+								<div class="price">
+									<label for="price">Price</label>
+									<input type="number" id="price"/>
+									<p id="error-price"> </p>
+								</div>
+								<div class="guest">
+									<label>Guest</label>
+									<input type="number" id="guest" />
+									<p id="error-guest"> </p>
+								</div>
+							</div>
+							<div>
+								<label for="image">Image</label>
+								<input type="file" id="image"><br><br>
+								<div class="preview-container" id="preview"></div>
+							</div>
+							<div>
+								<button id="serviceFormSubmit" class="service-form-submit">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

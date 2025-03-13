@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Dream Event Planner</title>
+	<link type="text/css" rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="../javascript/checkSession.js"></script>
+	<script src="../javascript/UserNavigationJQ.js"></script>
+	<script>
+        let totalBudget = 0;
+        let expenses = [];
+        let chart;
+        function addExpense() {
+            const budgetInput = document.getElementById("totalBudget");
+            if (budgetInput.value) {
+                totalBudget = parseFloat(budgetInput.value);
+            }
+            const name = document.getElementById("expenseName").value;
+            const amount = parseFloat(document.getElementById("expenseAmount").value);
+            if (!name || isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid expense name and amount.");
+                return;
+            }
+            expenses.push({ name, amount });
+            updateTable();
+            updateChart();
+        }
+
+        function updateTable() {
+            let tableBody = document.getElementById("expenseList");
+            tableBody.innerHTML = "";
+            let totalExpenses = 0;
+            expenses.forEach(expense => {
+                totalExpenses += expense.amount;
+                let row = `<tr><td>${expense.name}</td><td>$${expense.amount}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+            let remaining = totalBudget - totalExpenses;
+            document.getElementById("remainingBudget").textContent = remaining.toFixed(2);
+        }
+
+        function updateChart() {
+            const ctx = document.getElementById("expenseChart").getContext("2d");
+            if (chart) chart.destroy();
+            let labels = expenses.length > 0 ? expenses.map(expense => expense.name) : ["Venue", "Catering", "Photography", "Others"];
+            let data = expenses.length > 0 ? expenses.map(expense => expense.amount) : [60, 20, 10, 10];
+            chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: ['#ff44cb', '#febbf7', '#ffe4fb', '#a1cdf5', '#c4dff9']
+                    }]
+                }
+            });
+        }
+		
+		window.addEventListener("load", function() {
+			document.getElementById("addExpenseButton").addEventListener("click", addExpense, false);
+			updateChart();
+			fetch('userNavigation.html')
+			    .then(response => response.text())
+			    .then(data => {
+			      document.getElementById('content').innerHTML = data;
+		    	});
+		}, false);
+    </script>
+</head>
+<body>
+	<div id="content"></div>
+	<main class="budgetplanner-body">
+		<h1>Wedding Budget Planner</h1>
+	    <div class="budget-container">
+	        <div class="budget-form-section">
+				<h2>Customize</h2>
+	            <label for="totalBudget">Total Budget: $</label>
+	            <input type="number" id="totalBudget" placeholder="Enter total budget" min="100" required>
+	            <br>
+	            <input type="text" id="expenseName" placeholder="Expense Name">
+	            <input type="number" id="expenseAmount" placeholder="Amount" min="1">
+	            <button id="addExpenseButton">Add Expense</button>     
+	            <table>
+	                <thead><tr><th>Expense</th><th>Amount ($)</th></tr></thead>
+	                <tbody id="expenseList"></tbody>
+	            </table>
+	            <h3>Remaining Budget: $<span id="remainingBudget">0</span></h3>
+	        </div>
+	        <div class="budget-chart-section">
+	            <canvas id="expenseChart"></canvas>
+	        </div>
+	    </div>
+	</main>
+</body>
+</html>

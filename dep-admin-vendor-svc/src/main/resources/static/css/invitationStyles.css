@@ -1,0 +1,173 @@
+.invitation-page-main {
+   font-family: "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+   text-align: center;
+   background-color: #fff5ed;
+   height: 100%;
+   margin-top: -20px;
+   padding: 10px;
+}
+.invitation-container {
+   display: flex;
+   justify-content: space-around;
+   padding: 20px;
+}
+.invitation-editor {
+   background: white;
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   width: 400px;
+   height: 500px;
+   color: #444;
+}
+.invitation-editor div {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+.invitation-editor label {
+   flex: 1;
+   text-align: left;
+   font-weight: bold;
+}
+.invitation-editor input {
+   flex: 2;
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+}
+.invitation-canvas-container {
+   position: relative;
+   display: inline-block;
+   border: 2px solid #ddd;
+   border-radius: 8px;
+   overflow: hidden;
+}
+.invitation-draggable-text {
+    width: 90%; /* Adjust width so text doesn't overflow */
+    text-align: center; 
+    word-wrap: break-word; /* Prevent text overflow */
+}
+.invitation-editor button {
+   margin-top: 10px;
+   padding: 10px;
+   background: #ff44cb;
+   color: white;
+   border: none;
+   cursor: pointer;
+   border-radius: 5px;
+	width: 100%;
+}
+.invitation-canvas-container {
+    position: relative;
+    width: 600px;
+    height: 700px;
+    background-color: white; /* Ensure it is visible */
+}
+.invitation-canvas-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0; /* Ensure it's behind text but still visible */
+    display: block; /* Ensure it's not hidden */
+}
+#invitationImage {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Message 1 */
+#invitation-message1 {
+    position: absolute;  /* Absolute positioning inside the container */
+    top: 150px;  /* Move to the top */
+    left: 50%;  /* Center it horizontally */
+    transform: translateX(-50%);  /* Ensure perfect centering */
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;  /* Ensure it spans the container */
+}
+
+#invitation-message1 p, #invitation-message2 p {
+    margin: 5px 0;  /* Reduce top and bottom margin */
+    line-height: 1.0;  /* Reduce line height for closer spacing */
+}
+
+/* Couple Name */
+#coupleText {
+    font-size: 40px; /* Elegant script font size */
+    font-family: 'Dancing Script', cursive; /* Use script font */
+    font-weight: bold;
+    color: #333;
+	position: absolute;  /* Absolute positioning inside the container */
+    top: 250px;  /* Move to the top */
+	left: 20px;
+	line-height: 1.0;
+}
+
+/* Message 2 */
+#invitation-message2 {
+	position: absolute;  /* Absolute positioning inside the container */
+    top: 350px;  /* Move to the top */
+    left: 50%;  /* Center it horizontally */
+    transform: translateX(-50%);  /* Ensure perfect centering */
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;  /* Ensure it spans the container */
+}
+
+/* Wedding Date */
+#dateText {
+    font-size: 35px; /* Highlighted wedding date */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+	position: absolute;  /* Absolute positioning inside the container */
+    top: 450px;  /* Move to the top */
+	left: 20px;
+}
+
+/* Venue */
+#venueText {
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+	position: absolute;  /* Absolute positioning inside the container */
+    top: 530px;  /* Move to the top */
+	left: 20px;
+	line-height: 1.0;
+}
+
+#fontSelector {
+    flex: 2; /* Match size with input fields */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#fontSelector option {
+    font-size: 16px;
+    padding: 5px;
+}
+
+#textColor {
+    width: 50px;
+    height: 30px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background: transparent;
+}

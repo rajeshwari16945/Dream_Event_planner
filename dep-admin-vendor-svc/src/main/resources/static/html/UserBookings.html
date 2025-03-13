@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/UserBookings.js"></script>
+		<script>
+		  fetch('userNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main>
+			<table class="bookings-table">
+				<thead class="bookings-thead"><tr><td>Sno</td><td>Service</td><td>Name</td><td>Wedding Date</td><td>No of Guests</td><td>Status</td><td>Pay</td></tr></thead>
+				<tbody class="bookings-tbody" id="tbody"></tbody>
+			</table>
+		</main>
+	</body>
+</html>

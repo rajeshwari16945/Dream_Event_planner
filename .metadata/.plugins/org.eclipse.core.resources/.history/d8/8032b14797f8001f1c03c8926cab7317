@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/UserSetting.js"></script>
+		<script>
+		  fetch('userNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main class="user-setting-page-main">
+			<div class="user-settings-heading">
+				<h1>Account Settings</h1>
+				<p>Edit your name, partner name, address etc...</p>
+			</div>
+			<div class="setting-page-user">
+				<div class="details-edit">
+					<form class="user-update-form">
+						<div><h1>Wedding details</h1></div>
+						<div class="name">
+							<input type="text" id="name" placeholder=" " />
+							<label for="name">Name</label>
+							<p id="error-name"> </p>
+						</div>
+						<div class="pname">
+							<input type="text" id="pname" placeholder=" " />
+							<label>Partner Name</label>
+							<p id="error-pname"> </p>
+						</div>
+						<div class="email">
+							<input type="text" id="email" placeholder=" " disabled/>
+							<label>Email</label>
+						</div>
+						<div>
+							<input type="text" id="address" placeholder=" "/>
+							<label>Address</label>
+							<p id="error-address"> </p>
+						</div>
+						<div>
+							<button id="cancel" class="usercancel-settings-button">Cancel</button>
+							<button id="Update" class="userupdate-settings-button">Update</button>
+						</div>
+					</form>
+				</div>
+				<div class="password-edit">
+					<form class="user-pswd-update-form">
+						<div><h1>Update Password</h1></div>
+						<div class="email">
+							<input type="text" id="emailid" placeholder=" " disabled/>
+							<label>Email</label>
+						</div>
+						<div class="password">
+							<input type="password" id="password" placeholder=" "/>
+							<label>Password</label>
+							<p id="error-password"></p>
+						</div>
+						<div class="confirm-password">
+							<input type="password" id="error-confirm-password" placeholder=" "/>
+							<label>Confirm Password</label>
+						</div>
+						<div class="user-update-buttons">
+							<button id="reset" class="userreset-button">Reset</button>
+							<button id="UpdatePswd" class="userupdate-pswd-button">Update</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

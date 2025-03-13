@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+    <fullyQualifiedTypeName name="com.adminvendor.validation.HomeValidation"/>
+    <fullyQualifiedTypeName name="com.adminvendor.validation.VendorValidation"/>
+    <fullyQualifiedTypeName name="com.adminvendor.validation.Utility"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.adminvendor.validation.UserValidation"/>
+    <fullyQualifiedTypeName name="com.adminvendor.util.JwtUtil"/>
+    <fullyQualifiedTypeName name="com.adminvendor.controller.VendorBusinessController"/>
+    <fullyQualifiedTypeName name="com.adminvendor.service.VendorBusinessService"/>
+    <fullyQualifiedTypeName name="com.adminvendor.validation.VendorServiceValidation"/>
+    <fullyQualifiedTypeName name="com.adminvendor.util.Utility"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="com.adminvendor.dao.BookingDao"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="com.adminvendor.service.BookingService"/>
+    <fullyQualifiedTypeName name="com.adminvendor.validation.BookingValidation"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="com.adminvendor.util.PasswordUtil"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>

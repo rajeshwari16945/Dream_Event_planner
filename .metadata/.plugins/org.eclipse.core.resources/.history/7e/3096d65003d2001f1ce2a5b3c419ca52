@@ -1,0 +1,47 @@
+function start() {
+	//used the set interval to display random images in the image tag
+	let images = ["food1.jpg", "photo1.jpg", "photo2.jpg"];
+	let img = document.getElementById("scrollImage");
+	img.setAttribute("src", "../images/" + images[0]);
+	intervalSetter = window.setInterval(function() {
+	        // Generate a random number between 1 and 5
+	        let randNum = 0 + Math.floor(Math.random() * images.length);
+	        console.log("rand : " +randNum);
+	        img.setAttribute("src", "../images/" + images[randNum]);
+	    }, 2000);
+		
+	//create the event listener for submit button.
+	document.getElementById("submitForm").addEventListener("click", function(event) { 
+		registerFormSubmit(event); 
+		document.getElementById("fsname").addEventListener("input", function(event) { updateError(event.target.value, "error-fname"); }, false);
+	}, false);
+}
+
+function registerFormSubmit(event) {
+	event.preventDefault();
+	//validating the fields.
+	let fname = document.getElementById("fsname").value;
+	let lname = document.getElementById("lsname").value;
+	let company = document.getElementById("company").value;
+	let category = document.getElementById("category").value;
+	let phone = document.getElementById("phone").value;
+	let email = document.getElementById("email").value;
+	let validationSuccess = 0;
+	(!fname.trim())? document.getElementById("error-fname").innerHTML="This Field is required." : validationSuccess++;
+	(!lname.trim())? document.getElementById("error-lname").innerHTML="This Field is required." : validationSuccess++;
+	(!company.trim())? document.getElementById("error-company").innerHTML="This Field is required." : validationSuccess++;
+	(!category.trim())? document.getElementById("error-category").innerHTML="This Field is required." : validationSuccess++;
+	(!phone.trim())? document.getElementById("error-phone").innerHTML="This Field is required." : validationSuccess++;
+	(!email.trim())? document.getElementById("error-email").innerHTML="This Field is required." : validationSuccess++;
+	if(validationSuccess == 6) {
+		location.reload();
+		alert("Registration Completed Successfully.");
+	}
+}
+
+function updateError(value, errId) {
+	if(!value.trim()) document.getElementById(errId).innerHTML="This Field is required.";
+	else document.getElementById(errId).innerHTML="";
+}
+
+window.addEventListener("load", start, false);

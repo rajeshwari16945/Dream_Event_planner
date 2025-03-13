@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/serviceJQ.js"></script>
+		<script>
+		  fetch('userNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body>
+		<div id="content"></div>
+		<main>
+			<div class="vendors-page">
+				<div class="service-filter-form">
+					<div class="left-filter-options">
+						<input type="text" class="filter-search-textbox" id="search-content" placeholder="Search Vendors, Address etc..." >
+					</div>
+					<div class="right-filter-options">
+						<select id="sort" class="filter-sort-select">
+							<option value="" disabled selected hidden>Sort By</option>
+							<option value="ratings">Ratings</option>
+							<option value="newest">Newest</option>
+						</select>
+						<button id="search" class="filter-search-button">Apply Filter</button>
+					</div>
+				</div>
+				<div class="service-count-message">
+					<p id="countMessage"></p>
+				</div>
+				<div class="display-list">
+					<div id="serviceListSection2" class="cards-section"  style="padding-top: 300px;">
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

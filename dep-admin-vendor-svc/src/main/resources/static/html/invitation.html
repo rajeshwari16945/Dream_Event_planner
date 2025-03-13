@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Dream Event Planner</title>
+	<link type="text/css" rel="stylesheet" href="../css/invitationStyles.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script src="../javascript/checkSession.js"></script>
+	<script src="../javascript/UserNavigationJQ.js"></script>
+	<script src="../javascript/Invitation.js"></script>
+	<script>
+	  fetch('userNavigation.html')
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('content').innerHTML = data;
+	    });
+	</script> 
+</head>
+<body>
+	<div id="content"></div>
+	<main class="invitation-page-main">
+	    <div class="invitation-container">
+			<div class="invitation-canvas-container" id="canvasContainer">
+				<img id="invitationImage" src="../images/invitations/template1.jpg" alt="Test Image" crossorigin="anonymous">
+			    <!-- Message 1 -->
+			    <div class="invitation-draggable-text" id="invitation-message1">
+			        <p>TOGETHER</p>
+			        <p>WITH THEIR FAMILIES</p>
+			    </div>
+			    <!-- Couple Names -->
+			    <div id="coupleText" class="invitation-draggable-text">Couple Names</div>
+			    <!-- Message 2 -->
+			    <div class="invitation-draggable-text" id="invitation-message2">
+			        <p>INVITE YOU TO CELEBRATE</p>
+			        <p>THEIR WEDDING DAY</p>
+			    </div>
+			    <!-- Wedding Date -->
+			    <div id="dateText" class="invitation-draggable-text">Wedding Date</div>
+			    <!-- Venue -->
+			    <div id="venueText" class="invitation-draggable-text">Venue</div>
+			</div>
+	        <div class="invitation-editor">
+	            <h2>Edit Your Invitation</h2>
+				<div>
+					<label>Couple Names:</label>
+		            <input type="text" id="coupleNames" placeholder="Enter couple names"><br>
+	            </div>
+				<div>
+					<label>Event Date:</label>
+		            <input type="date" id="weddingDate"><br>
+	            </div>
+				<div>
+					<label>Venue:</label>
+		            <input type="text" id="venue" placeholder="Enter venue"><br>
+	            </div>
+				<div>
+					<label>Text Color:</label>
+		            <input type="color" id="textColor" value="#000000"><br>
+	            </div>
+				<div>
+				    <label>Choose Font:</label>
+				    <select id="fontSelector">
+				        <option value="Arial, sans-serif">Arial</option>
+				        <option value="'Times New Roman', serif">Times New Roman</option>
+				        <option value="'Courier New', monospace">Courier New</option>
+				        <option value="'Georgia', serif">Georgia</option>
+				        <option value="'Verdana', sans-serif">Verdana</option>
+				        <option value="'Dancing Script', cursive">Dancing Script</option>
+				    </select>
+				</div>
+				<div>
+					<label>Upload Image:</label>
+		            <input type="file" id="uploadImage" accept="image/*"><br>
+	            </div>
+				<div>
+					<button id="downloadInvitationButton">Download Invitation</button>
+				</div>
+	        </div>
+			
+	    </div>
+	</main>
+</body>
+</html>
