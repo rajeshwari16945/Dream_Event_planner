@@ -1,6 +1,6 @@
 //Created By Ganamukkula
 $(document).ready(function() {
-	let intervalSetter = setInterval(function () {
+	let intervalSetter = setInterval(async function () {
 		let user = JSON.parse(sessionStorage.getItem("user"));
 		if (user) {
 			clearInterval(intervalSetter); // Stop checking once data is available
@@ -8,10 +8,24 @@ $(document).ready(function() {
 			const serviceId = getQueryParam('id');
 			getEachServices(serviceId, user);
 			if(user.role == "user") {
-				// Get today's date in YYYY-MM-DD format
-				let today = new Date().toISOString().split('T')[0];
-				// Set the min attribute of the input field
-				document.getElementById("event-date").setAttribute("min", today);
+				// Wait for the async function to return data
+                let data = await getBookingDatesByService(serviceId);
+
+                console.log("Disabled Dates:", data);
+
+                let today = new Date();
+
+                // Ensure that date_array exists and is in the correct format
+                let disabledDates = data && data.date_array ? data.date_array.split(",") : [];
+
+                $("#event-date").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    minDate: today,
+                    beforeShowDay: function (date) {
+                        let formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
+                        return [disabledDates.indexOf(formattedDate) === -1]; // Return false to disable the date
+                    },
+                });
 				$("#requestButton").on("click", function(event) {
 					$("#first_name").on("input", function(event) { updateError(event.target.value, "error-fname"); });
 					$("#last_name").on("input", function(event) { updateError(event.target.value, "error-lname"); });
@@ -134,6 +148,24 @@ function multipleCarousel() {
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
+}
+
+async function getBookingDatesByService(id) {
+	try {
+		const response = await fetch('/booking/getDatesByService/'+id, {
+			method: 'GET'
+		});
+		const data = await response.json();
+		if(data.success) {
+			console.log(data);
+			return data.data;
+		} else {
+			alert("Booking dates not fetched");
+		}
+	} catch (error) {
+       console.log(error);
+       alert(error.message);
+    }
 }
 
 async function getEachServices(id, user) {

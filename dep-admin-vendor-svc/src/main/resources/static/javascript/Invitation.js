@@ -45,7 +45,27 @@ function downloadInvitation() {
     }).catch(err => console.error("Error rendering image: ", err));
 }
 
+function shareViaWhatsApp() {
+    html2canvas(document.getElementById('canvasContainer'), { useCORS: true }).then(canvas => {
+        canvas.toBlob(function(blob) {
+            let file = new File([blob], "invitation.png", { type: "image/png" });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({
+                    title: "Wedding Invitation",
+                    text: "You're invited! 🎉",
+                    files: [file]
+                }).then(() => console.log("Shared successfully"))
+                  .catch(err => console.error("Error sharing: ", err));
+            } else {
+                alert("Sharing is not supported on this browser. Try on a mobile device.");
+            }
+        }, "image/png");
+    }).catch(err => console.error("Error capturing invitation: ", err));
+}
+
 window.addEventListener("load", function() {
+	let today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+    document.getElementById("weddingDate").setAttribute("min", today);
     document.getElementById("downloadInvitationButton").addEventListener("click", downloadInvitation, false);
     document.getElementById("uploadImage").addEventListener("change", loadImage, false);
     document.getElementById("coupleNames").addEventListener("input", function() {
@@ -57,4 +77,5 @@ window.addEventListener("load", function() {
     }, false);
     document.getElementById("textColor").addEventListener("input", updateTextColor, false);
     document.getElementById("fontSelector").addEventListener("change", updateFont, false);
+	document.getElementById("shareWhatsappButton").addEventListener("click", shareViaWhatsApp);
 }, false);

@@ -63,4 +63,11 @@ public class BookingService {
     	res.put("data", data);
     	return res;
     }
+    
+    public Map<String, Object> getBookingDatesByService(int id) {
+    	Map<String, Object> res= new HashMap<String, Object>();
+    	Map<String, Object> data = dao.getBookingDatesByService(id);
+    	res.put("data", data);
+    	return res;
+    }
 }

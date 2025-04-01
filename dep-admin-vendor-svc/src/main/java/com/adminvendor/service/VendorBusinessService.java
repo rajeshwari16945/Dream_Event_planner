@@ -1,8 +1,5 @@
 package com.adminvendor.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.adminvendor.dao.VendorBusinessDao;
 import com.adminvendor.util.Utility;
 
@@ -20,8 +16,6 @@ public class VendorBusinessService {
 
     @Autowired
     private VendorBusinessDao dao;
-    
-    private static final String UPLOAD_DIR = "C://UPLOADS/";
    
     @Transactional(rollbackFor = Exception.class) 
 	public Map<String, Object> saveVendorService(Map<String, Object> reqData, List<MultipartFile> images) {
@@ -33,25 +27,7 @@ public class VendorBusinessService {
         				Utility.isNullOrEmpty(reqData.get("price"))? 0 : (int) reqData.get("price"), (int) ((Map<String, Object>) reqData.get("vendor")).get("id"));
         		
         		res.put("uid", serviceId);
-        		List<String> imagePaths = new ArrayList<>();
-
-                for (MultipartFile image : images) {
-                    if (!image.isEmpty()) {
-                        String filePath = UPLOAD_DIR + image.getOriginalFilename();
-                        File file = new File(filePath);
-                        // Ensure the directory exists before saving the file
-                        File directory = new File(file.getParent());
-                        if (!directory.exists()) {
-                            directory.mkdirs(); // Creates the directory structure if it doesn't exist
-                        }
-                        try {
-                            image.transferTo(file); // Save image to "uploads/" folder
-                            imagePaths.add(filePath);
-                        } catch (IOException e) {
-                        	throw new RuntimeException("Failed to save image: " + e.getMessage());
-                        }
-                    }
-                }
+        		List<String> imagePaths = Utility.multipleFileUpload(images);
         		dao.saveVendorServiceImages(serviceId,imagePaths);
         	}
         	System.out.println(res);

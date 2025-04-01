@@ -151,4 +151,24 @@ public class BookingController {
 			return new ResponseEntity<>(finalResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/getDatesByService/{id}")
+	public ResponseEntity<Map<String, Object>> getBookingDatesByService(@PathVariable int id) {
+		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> finalResponse = new HashMap<>();
+		try {
+			// Save user and get response
+			response = service.getBookingDatesByService(id);
+			// Build success response
+			finalResponse.put("success", true);
+			finalResponse.put("message", "Fetched Succesfully");
+			finalResponse.put("data", response.get("data"));
+			return new ResponseEntity<>(finalResponse, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace(); // Log the exception for debugging
+			finalResponse.put("success", false);
+			finalResponse.put("message", "Operation failed due to a server error.");
+			return new ResponseEntity<>(finalResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

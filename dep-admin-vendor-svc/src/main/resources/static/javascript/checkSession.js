@@ -12,7 +12,7 @@ async function checkSession() {
        if (data.success) {
            	console.log(data);
 			console.log(window.location.pathname);
-			sessionStorage.setItem("user", JSON.stringify({ email: data.data.email, id: data.data.id, name: data.data.name, partnerName: data.data.partner_name, address: data.data.address, image: data.data.image}));
+			sessionStorage.setItem("user", JSON.stringify({ email: data.data.email, id: data.data.id, name: data.data.name, partnerName: data.data.partner_name, address: data.data.address, image: data.data.image, role: "user"}));
 			console.log(sessionStorage);
 			if(window.location.pathname == "/home.html") window.location.href = '../html/dashboard.html';
        } else {

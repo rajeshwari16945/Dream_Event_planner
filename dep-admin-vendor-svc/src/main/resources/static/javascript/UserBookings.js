@@ -74,6 +74,10 @@ function getGridData(data, user) {
         tdGuest.innerText = item.guest;
         tr.appendChild(tdGuest);
 
+		let tdPrice = document.createElement("td");
+        tdPrice.innerText = item.price;
+        tr.appendChild(tdPrice);
+				
         let tdStatus = document.createElement("td");
         tdStatus.innerText = item.status;
 		tdStatus.classList.add("booking-status");

@@ -25,6 +25,7 @@ async function getDashboardData(user) {
 			document.getElementById("service-count").innerHTML = data.data.serviceCount;
 			document.getElementById("bookingCount").innerHTML = data.data.bookingCount;
 			document.getElementById("completedWeddings").innerHTML = data.data.confirmedBookingCount;
+			document.getElementById("totalUsers").innerHTML = data.data.userCount;
 			document.getElementById("service-name-button").innerHTML = "Add " + user.category;
 			if(user.image) {
 				fileName = user.image.trim().split(/[/\\]/).pop();  

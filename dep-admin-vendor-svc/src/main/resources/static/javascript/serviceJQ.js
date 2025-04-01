@@ -25,14 +25,18 @@ $(document).ready(function() {
 				const serviceType = getQueryParam('type');
 				//Display it on the page.
 				console.log("Selected Service:", serviceType);
+				//add eventlistener for filter button
+				$("#search").on("click", function() {
+					getByCategoryServicesList(serviceType, user);
+				});
 				getByCategoryServicesList(serviceType, user);
 			}
 
 			// Handle Image Selection and Preview
-			 	$("#images").on("change", function (event) {
+		 	$("#images").on("change", function (event) {
 			     selectedImages = Array.from(event.target.files);
 			     $("#preview").empty();
-
+	
 			     selectedImages.forEach(file => {
 			         let reader = new FileReader();
 			         reader.onload = function (e) {
@@ -40,11 +44,10 @@ $(document).ready(function() {
 			         };
 			         reader.readAsDataURL(file);
 			   	});
-			})
-			 
-			// Handle Upload Button Click
-			$("#serviceFormSubmit").on("click", function (event) { saveService(event, user); });
-		}
+			});
+		// Handle Upload Button Click
+		$("#serviceFormSubmit").on("click", function (event) { saveService(event, user); });
+	}
 	}, 1000);
 });
 

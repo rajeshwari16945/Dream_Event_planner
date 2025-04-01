@@ -45,22 +45,7 @@ public class UserService {
 	
 	public Map<String, Object> updateUserImage(Map<String, Object> reqData, MultipartFile image) {
 		Map<String, Object> res = new HashMap<String, Object>();
-    	String imagePath = null;
-        if (image != null && !image.isEmpty()) {
-            String filePath = "C://UPLOADS/" + image.getOriginalFilename();
-            File file = new File(filePath);
-            // Ensure the directory exists before saving the file
-            File directory = new File(file.getParent());
-            if (!directory.exists()) {
-                directory.mkdirs(); // Creates the directory structure if it doesn't exist
-            }
-            try {
-                image.transferTo(file); // Save image to "uploads/" folder
-                imagePath=filePath;
-            } catch (IOException e) {
-            	throw new RuntimeException("Failed to save image: " + e.getMessage());
-            }
-        }
+    	String imagePath = Utility.singleFileUpload(image);
 		int id = dao.updateUserImage((int) reqData.get("id"), imagePath);
 		if(id<=0) res.put("errors", "No updation performed");
 		else res.put("uid", reqData.get("id"));

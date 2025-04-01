@@ -108,9 +108,13 @@ public class VendorBusinessDao {
                 else { 
                     whereCondition+= " OR "; 
                 }
-                whereCondition +=  " `v`.`first_name` LIKE '%"+words[i]+"%' OR `v`.`last_name` LIKE '%"+words[i]+"%'";
+                whereCondition +=  " `v`.`first_name` LIKE '%"+words[i]+"%' OR `v`.`last_name` LIKE '%"+words[i]+"%' OR `vs`.`address` LIKE '%"+words[i]+"%' OR `vs`.`title` LIKE '%"+words[i]+"%' OR `vs`.`name` LIKE '%"+words[i]+"%'";
     		}
     		whereCondition += ")";
+    	}
+    	String sortCondition = "`vs`.`id` DESC";
+    	if(!Utility.isNullOrEmpty(sort)) {
+    		if(sort.equalsIgnoreCase("oldest")) sortCondition = "`vs`.`id` ASC";
     	}
     	String listQuery = "SELECT vs.`id`, v.`first_name` `vendor.first_name`, v.`email` `vendor.email`, \r\n"
     			+ "vs.`title`, vs.`name`, vs.`address`, vs.`summary`, GROUP_CONCAT(vsi.image SEPARATOR ',') AS images  \r\n"
@@ -118,7 +122,8 @@ public class VendorBusinessDao {
     			+ "JOIN vendor `v` ON v.`id`=vs.`vendor`\r\n"
     			+ "JOIN vendor_service_images `vsi` ON vsi.`vendor_service`=vs.`id`\r\n"
     			+ "WHERE v.`category`=? " + whereCondition + "\r\n"
-    			+ "GROUP BY vs.`id` ORDER BY vs.`id` DESC;";
+    			+ "GROUP BY vs.`id` ORDER BY " + sortCondition + ";";
+    	System.out.println(listQuery);
     	// Query will return a list of results, each row is a Map
         List<Map<String, Object>> result = jdbcTemplate.queryForList(listQuery, category);
         return result;

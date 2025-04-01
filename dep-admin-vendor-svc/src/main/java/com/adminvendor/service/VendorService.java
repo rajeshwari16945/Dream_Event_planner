@@ -1,12 +1,11 @@
 package com.adminvendor.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.adminvendor.dao.UserDao;
 import com.adminvendor.dao.VendorDao;
 import com.adminvendor.util.PasswordUtil;
 import com.adminvendor.util.Utility;
@@ -16,6 +15,8 @@ public class VendorService {
 
     @Autowired
     private VendorDao dao;
+    @Autowired
+    private UserDao userdao;
 
     public Map<String, Object> saveVendor(Map<String, Object> reqData) {
     	Map<String, Object> res = new HashMap<String, Object>();
@@ -35,22 +36,7 @@ public class VendorService {
     	if(dao.verifyEmail((int) reqData.get("id"), (String) reqData.get("email"))) res.put("errors", new HashMap() {{ put("email", "Email Already Exists."); }});
     	if(dao.verifyPhone((int) reqData.get("id"), (String) reqData.get("phone"))) res.put("errors", new HashMap() {{ put("phone", "Phone Already Exists."); }});
     	if(res.isEmpty()) {
-		String imagePath = null;
-            if (image != null && !image.isEmpty()) {
-                String filePath = "C://UPLOADS/" + image.getOriginalFilename();
-                File file = new File(filePath);
-                // Ensure the directory exists before saving the file
-                File directory = new File(file.getParent());
-                if (!directory.exists()) {
-                    directory.mkdirs(); // Creates the directory structure if it doesn't exist
-                }
-                try {
-                    image.transferTo(file); // Save image to "uploads/" folder
-                    imagePath=filePath;
-                } catch (IOException e) {
-                	throw new RuntimeException("Failed to save image: " + e.getMessage());
-                }
-            }
+    		String imagePath = Utility.singleFileUpload(image);
     		int id = dao.updateVendorDetails((int) reqData.get("id"), (String) reqData.get("firstName"), (String) reqData.get("lastName"), (String) reqData.get("email"), (String) reqData.get("phone"), (String) reqData.get("company"), imagePath);
     		if(id<=0) res.put("errors", "No updation performed");
     		else res.put("uid", reqData.get("id"));
@@ -107,6 +93,7 @@ public class VendorService {
 		res.put("serviceCount", dao.getVendorServicesCount(vendorId));
 		res.put("bookingCount", dao.getBookingCount(vendorId));
 		res.put("confirmedBookingCount", dao.getConfirmedBookingCount(vendorId));
+		res.put("userCount", userdao.getUserCount());
 		return res;
 	}
 }

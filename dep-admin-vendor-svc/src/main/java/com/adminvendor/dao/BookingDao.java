@@ -110,4 +110,10 @@ public class BookingDao {
         Map<String, Object> result = jdbcTemplate.queryForMap(selectQuery, id);
         return result;
     }
+    
+    public Map<String, Object> getBookingDatesByService(int id) {
+    	String query = "SELECT GROUP_CONCAT(event_date) AS date_array FROM bookings WHERE service= ? AND status = 'Booked';";
+    	Map<String, Object> result = jdbcTemplate.queryForMap(query, id);
+    	return result;
+    }
 }

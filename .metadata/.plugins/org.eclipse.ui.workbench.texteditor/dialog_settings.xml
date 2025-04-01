@@ -16,4 +16,11 @@
 		<item value="closeBtn"/>
 		<item value="none"/>
 	</list>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="booking"/>
+			<item value="search"/>
+		</list>
+	</section>
 </section>

@@ -105,4 +105,11 @@ public class UserDao {
         return Utility.isNullOrEmpty(result) ? null : result.get(0);
     }
     
+    public int getUserCount() {
+    	String query = "SELECT count(*) `count` FROM user";
+    	Map<String, Object> result = jdbcTemplate.queryForMap(query);
+    	Long count =(Long) result.get("count");
+    	return count != null ? count.intValue() : 0;
+    }
+    
 }
