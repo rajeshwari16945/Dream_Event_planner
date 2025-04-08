@@ -1,0 +1,29 @@
+package com.adminvendor.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/common")
+public class CommonController {
+
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+	    // Check if user exists
+	    User user = userRepository.findByEmail(email);
+	    if (user == null) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+	    }
+
+	    String token = UUID.randomUUID().toString();
+	    user.setResetToken(token); // Save to DB
+	    userRepository.save(user);
+
+	    String resetLink = "http://localhost:8080/reset-password?token=" + token;
+	    emailService.sendPasswordResetEmail(email, resetLink);
+
+	    return ResponseEntity.ok("Reset email sent!");
+	}
+}

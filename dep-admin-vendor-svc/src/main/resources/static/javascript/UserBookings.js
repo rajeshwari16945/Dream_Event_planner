@@ -96,16 +96,23 @@ function getGridData(data, user) {
 		        break;
 		}
 		tr.appendChild(tdStatus);
+		// View button with eye symbol
+        let tdView = document.createElement("td");
+        let viewLink = document.createElement("a");
+        viewLink.href = `../html/EachUserBooking.html?id=${item.id}`; // Adjust URL as needed
+        viewLink.innerHTML = "👁";
+        viewLink.classList.add("view-icon"); // Add a class for styling
+        tdView.appendChild(viewLink);
+		tr.appendChild(tdView);
+		//pay button
 		let tdPay = document.createElement("td");
 		if(item.status.toLowerCase() == "confirmed") {
-			// View button with eye symbol
 	        let payButton = document.createElement("button");
 			payButton.id="payButton"+item.id;
 			payButton.classList.add("booking-pay-button");
 	        payButton.innerHTML = "pay now";
 	        tdPay.appendChild(payButton);
-	        
-			// Attach event listener correctly
+			// Attach event listener 
 	        payButton.addEventListener("click", function () {
 	            updatebookingStatus(item.id, "Booked", item.price);
 	        });

@@ -1,0 +1,68 @@
+package com.adminvendor.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.adminvendor.service.UserService;
+import com.adminvendor.util.EmailNotification;
+
+@RestController
+@RequestMapping("/common")
+public class CommonController {
+	
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private EmailNotification emailService;
+
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestBody Map<String, Object> reqData) {
+	    // Check if user exists
+		String email = (String) reqData.get("email");
+	    Map<String, Object> user = userService.getUserByEmail(email);
+	    Map<String, Object> finalResponse = new HashMap<>();
+	    if (user == null) {
+	        // Build success response
+			finalResponse.put("success", false);
+	        finalResponse.put("errors", "User not found");
+	        return new ResponseEntity<>(finalResponse, HttpStatus.NOT_FOUND);
+	    }
+	    String token = UUID.randomUUID().toString();
+	    userService.saveResetToken(token, email);
+	    String resetLink = "http://localhost:8080/html/ResetPassword.html?token=" + token;
+	    emailService.sendPasswordResetEmail(email, resetLink);
+	 // Build success response
+		finalResponse.put("success", true);
+        finalResponse.put("msg", "Reset email sent");
+        return new ResponseEntity<>(finalResponse, HttpStatus.OK);
+	}
+	
+	@PostMapping("/reset-password")
+	public ResponseEntity<?> resetPassword(@RequestBody Map<String, Object> reqData) {
+		// Check if user exists
+		String email = (String) reqData.get("email");
+	    Map<String, Object> user = userService.getUserByEmail(email);
+	    Map<String, Object> finalResponse = new HashMap<>();
+	    if (user == null || !((String)user.get("reset_token")).equals((String)reqData.get("token"))) {
+	        // Build success response
+			finalResponse.put("success", false);
+	        finalResponse.put("errors", "Invalid User");
+	        return new ResponseEntity<>(finalResponse, HttpStatus.NOT_FOUND);
+	    }
+	    userService.updatePassword(new HashMap<String, Object>() {{
+	    	put("id", (int) user.get("id"));
+	    	put("password", (String) reqData.get("password"));
+	    }});
+	}
+	
+}

@@ -1,0 +1,5 @@
+package com.adminvendor.util;
+
+public class EmailNotification {
+
+}

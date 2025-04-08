@@ -100,7 +100,7 @@ public class BookingDao {
     
     public Map<String, Object> getEachBooking(int id) {
     	String selectQuery = "SELECT `b`.`id`, `b`.`first_name` `firstName`, `b`.`last_name` `lastName`, `b`.`guest`,  `b`.`event_date` `eventDate`, `b`.`vision`,\r\n"
-    			+ "`b`.`status`, `vs`.`name` `serviceName`, `vs`.`title`, `vs`.`address`, `vs`.`summary`, `v`.`category`\r\n"
+    			+ "`b`.`status`, `vs`.`name` `serviceName`, `vs`.`title`, `vs`.`address`, `vs`.`summary`, `v`.`category`, `b`.`price`\r\n"
     			+ "FROM bookings `b` \r\n"
     			+ "JOIN vendor_services `vs` ON `b`.`service`=`vs`.`id`\r\n"
     			+ "JOIN vendor `v` ON `vs`.`vendor`=`v`.`id`\r\n"

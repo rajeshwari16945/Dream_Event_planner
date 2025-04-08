@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<form class="form-controls" id="form-controls">
+			<div class="email-user">
+				<input type="text" id="email" placeholder=" " disabled/>
+				<label>Email</label>
+				<p id="error-email"> </p>
+			</div>
+			<div class="pswd-user">
+				<input type="password" id="password" placeholder=" " />
+				<label>New Password</label>
+				<p id="error-password"> </p>
+			</div>
+			<button id="user-signup-submit" class="user-signup-button">Sign up</button>
+		</form>
+	</body>
+</html>

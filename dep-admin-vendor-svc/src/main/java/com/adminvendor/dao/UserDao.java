@@ -44,8 +44,9 @@ public class UserDao {
     }
     
     public int updateUserPassword(int id, String password) {
-    	String sql = "UPDATE `user` SET password = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, password, id);
+    	String token = null;
+    	String sql = "UPDATE `user` SET password = ? , reset_token = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, password, token, id);
     }
     
     public int updateUserImage(int id, String image) {
@@ -105,11 +106,24 @@ public class UserDao {
         return Utility.isNullOrEmpty(result) ? null : result.get(0);
     }
     
+    public Map<String, Object> getUserByEmail(String email) {
+    	String selectQuery = "Select * from `user` where email=?";
+    	// Execute the query and retrieve results
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(selectQuery, email);
+        // Return the first result if the list is not empty, otherwise return null or an empty map
+        return Utility.isNullOrEmpty(result) ? null : result.get(0);
+    }
+    
     public int getUserCount() {
     	String query = "SELECT count(*) `count` FROM user";
     	Map<String, Object> result = jdbcTemplate.queryForMap(query);
     	Long count =(Long) result.get("count");
     	return count != null ? count.intValue() : 0;
+    }
+    
+    public int saveResetToken(String token, String email) {
+    	String sql = "UPDATE `user` SET reset_token = ? WHERE email = ?";
+        return jdbcTemplate.update(sql, token, email);
     }
     
 }

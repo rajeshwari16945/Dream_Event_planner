@@ -11,7 +11,7 @@ $(document).ready(function () {
                     return;
                 }
                 console.log("Booking ID:", bookingId);
-                getEachBooking(bookingId);
+                getEachBooking(bookingId, user);
                 // Accept or reject booking
                 $("#acceptButton").on("click", function () { 
 					event.preventDefault();
@@ -75,7 +75,7 @@ function getQueryParam(param) {
     return value ? parseInt(value, 10) : null; // Ensure it's a valid number
 }
 
-async function getEachBooking(bookingId) {
+async function getEachBooking(bookingId, user) {
     try {
 		const response = await fetch('/booking/'+parseInt(bookingId), {
 	     	method: 'GET'
@@ -90,14 +90,23 @@ async function getEachBooking(bookingId) {
 			$("#guest").html(data.data.guest);
 			$("#vision").html(data.data.vision);
 			$("#address").html(data.data.address);
-			if(data.data.status == "Requested"){
+			if(data.data.status == "Requested" && user.role=="vendor"){
 				$("#headingWithStatus").html("Requested: Accept or Reject the profile");
 				$("#acceptButton").show();
 				$("#rejectButton").show();
+			} else if(data.data.status == "Requested" && user.role=="user") $("#headingWithStatus").html("Requested: Vendor action is pending");
+			else if(data.data.status == "Confirmed" && user.role=="vendor") $("#headingWithStatus").html("Confirmed: Wait till the customer pay the bill");
+			else if(data.data.status == "Confirmed" && user.role=="user") {
+				$("#headingWithStatus").html("Confirmed: Now you can pay the bill");
+				$("#rejectButton").show();
 			}
-			else if(data.data.status == "Confirmed") $("#headingWithStatus").html("Confirmed: Wait till the customer pay the bill");
-			else if(data.data.status == "Booked") $("#headingWithStatus").html("Booked: Customer payed the bill and booked the service");
-			else if(data.data.status == "Rejected") $("#headingWithStatus").html("Rejected by you");
+			else if(data.data.status == "Booked" && user.role=="vendor") $("#headingWithStatus").html("Booked: Customer payed the bill and booked the service");
+			else if(data.data.status == "Booked" && user.role=="user") {
+				$("#headingWithStatus").html("Booked: You payed the bill and booked the service");
+				$("#rejectButton").show();
+			}
+			else if(data.data.status == "Rejected" && data.data.price != 0) $("#headingWithStatus").html("Rejected by customer");
+			else if(data.data.status == "Rejected") $("#headingWithStatus").html("Rejected by vendor");
        } else {
 			alert("List not fetched.")
        }

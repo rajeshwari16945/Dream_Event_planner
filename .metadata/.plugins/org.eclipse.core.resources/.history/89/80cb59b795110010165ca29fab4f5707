@@ -1,0 +1,18 @@
+window.addEventListener("load", function() {
+	document.getElementById("resetPassword").addEventListener("click", resetPaswd, false);
+}, false);
+
+function resetPaswd() {
+	if (!email.trim()) {
+        document.getElementById("error-email").innerHTML = "This Field is required.";
+    } else if (!isValidEmail(email)) {
+        document.getElementById("error-email").innerHTML = "This Field is not valid.";
+    } else {
+		
+	}
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+}

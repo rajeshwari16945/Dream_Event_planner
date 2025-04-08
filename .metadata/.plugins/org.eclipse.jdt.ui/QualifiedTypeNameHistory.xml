@@ -18,6 +18,7 @@
     <fullyQualifiedTypeName name="com.adminvendor.validation.BookingValidation"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="com.adminvendor.util.PasswordUtil"/>
-    <fullyQualifiedTypeName name="com.adminvendor.util.Utility"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="com.adminvendor.util.EmailNotification"/>
+    <fullyQualifiedTypeName name="com.adminvendor.util.Utility"/>
 </qualifiedTypeNameHistroy>

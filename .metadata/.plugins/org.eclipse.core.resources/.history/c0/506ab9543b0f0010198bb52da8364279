@@ -1,0 +1,109 @@
+$(document).ready(function () {
+    let intervalSetter = setInterval(function () {
+        let user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) {
+            clearInterval(intervalSetter); // Stop checking once data is available
+            // Wait until the URL parameters are fully loaded
+            setTimeout(() => {
+                const bookingId = getQueryParam('id');
+                if (!bookingId) {
+                    console.error("Booking ID not found in URL");
+                    return;
+                }
+                console.log("Booking ID:", bookingId);
+                getEachBooking(bookingId, user);
+                // Accept or reject booking
+                $("#acceptButton").on("click", function () { 
+					event.preventDefault();
+					let price = prompt("Enter the price:");
+					// Check if the user canceled
+			        if (price === null) {
+						alert("Action Cancelled.");
+						return;
+			        } else {
+						// Convert input to number
+				        let num = Number(price);
+				        // Validation: Check if it's a number and within the range
+				        if (!Number.isNaN(num) && num >= 100 && num <= 10000) {
+				            updateBookingStatus(bookingId, "Confirmed", num); 
+				        } else {
+				            alert("Invalid input! Please enter a valid number between 100 and 10,000.");
+				        }	
+					}
+				});
+                $("#rejectButton").on("click", function () { 
+					event.preventDefault();
+					updateBookingStatus(bookingId, "Rejected", 0); 
+				});
+			}, 100); // Small delay to ensure URL params are ready
+        }
+    }, 500); // Check every 500ms
+});
+
+
+async function updateBookingStatus(bookingId, status, price) {
+    if (!bookingId || isNaN(bookingId)) {
+        console.error("Invalid Booking ID:", bookingId);
+        alert("Invalid booking ID.");
+        return;
+    }
+    try {
+        const requestData = { id: bookingId, status: status, price: price };
+        console.log("Updating Booking:", requestData);
+        const response = await fetch('/booking/update-status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        });
+        const data = await response.json();
+        if (data.success) {
+            window.location.href = window.location.href;
+        } else {
+            alert(data.data.errors);
+        }
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+
+// Function to get query parameters
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const value = urlParams.get(param);
+    return value ? parseInt(value, 10) : null; // Ensure it's a valid number
+}
+
+async function getEachBooking(bookingId) {
+    try {
+		const response = await fetch('/booking/'+parseInt(bookingId), {
+	     	method: 'GET'
+	    });
+       const data = await response.json();
+       if (data.success) {
+           	console.log(data);
+			$("#serviceLabelName").html(data.data.category + " Name")
+			$("#serviceName").html(data.data.serviceName);
+			$("#fullName").html(data.data.firstName + " " + data.data.lastName);
+			$("#eventDate").html(data.data.eventDate);
+			$("#guest").html(data.data.guest);
+			$("#vision").html(data.data.vision);
+			$("#address").html(data.data.address);
+			if(data.data.status == "Requested"){
+				$("#headingWithStatus").html("Requested: Accept or Reject the profile");
+				$("#acceptButton").show();
+				$("#rejectButton").show();
+			}
+			else if(data.data.status == "Confirmed") $("#headingWithStatus").html("Confirmed: Wait till the customer pay the bill");
+			else if(data.data.status == "Booked") $("#headingWithStatus").html("Booked: Customer payed the bill and booked the service");
+			else if(data.data.status == "Rejected" && data.data.price != 0) $("#headingWithStatus").html("Rejected by customer");
+			else if(data.data.status == "Rejected") $("#headingWithStatus").html("Rejected by vendor");
+       } else {
+			alert("List not fetched.")
+       }
+   } catch (error) {
+       console.log(error);
+       alert(error.message);
+   }
+}

@@ -1,0 +1,42 @@
+package com.adminvendor.util;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+
+@Service
+public class EmailNotification {
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void sendPasswordResetEmail(String toEmail, String resetLink) {
+    	 MimeMessage message = mailSender.createMimeMessage();
+         try {
+             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+             helper.setTo(toEmail);
+             helper.setSubject("Reset your password");
+             helper.setFrom("rajeshwari16945@gmail.com");
+             // HTML content
+             String htmlContent = "<div style='font-family: Arial, sans-serif; text-align: center; padding: 30px;'>"
+             		+ "<h2 style='color: #ff44cb;'>Dream Event Planner</h2>"
+             		+ "<h2 style='color: #555;'>Forgot your password?</h2>"
+             		+ "<p style='font-size: 14px; '>Hello!</p>"
+             		+ "<p style='font-size: 14px; color: #333;'>A request has been made to reset the password for <strong>" + toEmail + "</strong>.</p>"
+                    + "<p style='font-size: 14px; color: #333;'>Please click the button below to reset your password:</p>"
+                    + "<a href='" + resetLink + "' style='display: inline-block; margin-top: 15px; padding: 12px 24px; "
+                    + "background-color: #ff44cb; color: white; text-decoration: none; border-radius: 25px; "
+                    + "font-weight: bold;'>Reset My Password</a>"
+                    + "</div>";
+             helper.setText(htmlContent, true); // 'true' enables HTML
+             mailSender.send(message);
+         } catch (MessagingException e) {
+             e.printStackTrace(); // log or handle as needed
+         }
+    }
+    
+}

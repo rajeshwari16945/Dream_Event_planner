@@ -1,0 +1,39 @@
+package com.adminvendor.controller;
+
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.adminvendor.service.UserService;
+import com.adminvendor.util.EmailNotification;
+
+@RestController
+@RequestMapping("/common")
+public class CommonController {
+	
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private EmailNotification emailService;
+
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+	    // Check if user exists
+	    Map<String, Object> user = userService.getUserByEmail(email);
+	    if (user == null) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+	    }
+	    String token = UUID.randomUUID().toString();
+	    userService.saveResetToken(token, email);
+	    String resetLink = "http://localhost:8080/reset-password?token=" + token;
+	    emailService.sendPasswordResetEmail(email, resetLink);
+	    return ResponseEntity.ok("Reset email sent!");
+	}
+}

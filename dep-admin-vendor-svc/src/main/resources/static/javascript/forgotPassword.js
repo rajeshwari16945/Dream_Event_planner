@@ -1,0 +1,39 @@
+window.addEventListener("load", function() {
+	document.getElementById("resetPassword").addEventListener("click", function(event) { resetPaswd(event) }, false);
+}, false);
+
+async function resetPaswd(event) {
+	event.preventDefault();
+	let email = document.getElementById("email").value;
+	if (!email.trim()) {
+        document.getElementById("error-email").innerHTML = "This Field is required.";
+    } else if (!isValidEmail(email)) {
+        document.getElementById("error-email").innerHTML = "This Field is not valid.";
+    } else {
+		// Make the AJAX call using fetch() to validate the email number
+		try {
+		  	const requestData = { email: email };
+		    const response = await fetch('/common/forgot-password', {
+		     	method: 'POST',
+		        headers: { 'Content-Type': 'application/json' },
+		        body: JSON.stringify(requestData)
+		    });
+            const data = await response.json();
+            if (data.success) {
+				console.log("mail sent");
+				document.getElementById("success-msg").innerHTML= "If the email you entered is associated to an active account, you will receive an email with instructions to reset your password soon."
+            } else {
+				console.log(data)
+                document.getElementById("error-email").innerHTML = data.errors;
+            }
+        } catch (error) {
+            console.log(error);
+            alert(error.message);
+        }
+	}
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+}

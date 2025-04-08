@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Dream Event Planner</title>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/checkSession.js"></script>
+		<script src="../javascript/UserNavigationJQ.js"></script>
+		<script src="../javascript/EachBooking.js"></script>
+		<script>
+		  fetch('vendorNavigation.html')
+		    .then(response => response.text())
+		    .then(data => {
+		      document.getElementById('content').innerHTML = data;
+		    });
+		</script> 
+	</head>
+	<body class="each-booking-body">
+		<div id="content"></div>
+		<main>
+			<div class="each-booking-page">
+				<div class="booking-form-section">
+					<form class="booking-form">
+						<div>
+							<h1 id="headingWithStatus"></h1>
+						</div>
+						<div class="wedding-container">
+							<div>
+								<label id="serviceLabelName"></label>
+								<p id="serviceName"></p>
+							</div>
+							<div>
+								<label>Customer Name</label>
+								<p id="fullName"></p>
+							</div>
+						</div>
+						<div class="wedding-container">
+							<div>
+								<label>Wedding Date</label>
+								<p id="eventDate"></p>
+							</div>
+							<div>
+								<label>Guest</label>
+								<p id="guest"></p>
+							</div>
+						</div>
+						<div>
+							<label>Address</label>
+							<p id="address"></p>
+						</div>
+						<div>
+							<label>Vision</label>
+							<p id="vision" class="disply-vision"></p>
+						</div>
+						<div class="booking-buttons">
+							<button class="bookingRejectButton" id="rejectButton" style="display: none;">Reject</button>
+							<a href="Bookings.html" class="bookingCancelButton" id="cancelButton">Cancel</a>
+							<button class="bookingAcceptButton" id="acceptButton" style="display: none;">Accept</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

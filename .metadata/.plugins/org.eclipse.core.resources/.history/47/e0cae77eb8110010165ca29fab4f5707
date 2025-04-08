@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8"/>
+		<link type="text/css" rel="stylesheet" href="../css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="../javascript/ResetPassword.js"></script>
+	</head>
+	<body>
+		<form class="form-controls" id="form-controls">
+			<p><div class="email-user">
+				<input type="text" id="email" placeholder=" " disabled/>
+				<label>Email</label>
+				<p id="error-email"> </p>
+			</div></p>
+			<p/.<div class="pswd-user">
+				<input type="password" id="password" placeholder=" " />
+				<label>New Password</label>
+				<p id="error-password"> </p>
+			</div></p>
+			<p id="error-msgs"></p>
+			<button id="reset-submit" class="reset-button">Reset Password</button>
+		</form>
+	</body>
+</html>

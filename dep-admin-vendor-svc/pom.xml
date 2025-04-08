@@ -103,6 +103,11 @@
 		    <artifactId>spring-security-core</artifactId>
 		    <version>6.2.1</version> <!-- Use the latest version -->
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,0 +1,53 @@
+function start() {
+	document.getElementById("reset-submit").addEventListener("click", function(event) {
+		document.getElementById("emailInput").addEventListener("input", function(event) { updateError(event.target.value, "error-email-input"); }, false);
+		document.getElementById("passwordInput").addEventListener("input", function(event) { updateError(event.target.value, "error-password-input"); }, false);
+		resetFormSubmit(event);
+	}, false);
+}
+
+async function resetFormSubmit(event) {
+	event.preventDefault()
+	//validating the fields
+	let email = document.getElementById("emailInput").value;
+	let password = document.getElementById("passwordInput").value;
+	validationSuccess = 0;
+	(!email.trim())? document.getElementById("error-email-input").innerHTML = "This Field is required." : validationSuccess++; 
+	(!password.trim())? document.getElementById("error-password-input").innerHTML = "This Field is required." : validationSuccess++;
+	console.log(validationSuccess);
+	if(validationSuccess == 2) {
+		try {
+			const requestData = { email: email, password: password };
+	        const response = await fetch('/common/reset-password', {
+	            method: 'POST',
+	            headers: { 'Content-Type': 'application/json' },
+	            body: JSON.stringify(requestData)
+	        });
+	        const data = await response.json();
+	        console.log(data);
+	        if (data.success) {
+	            alert("Your new password's all set!.");
+				window.location.href = '../home.html';
+	        } else {
+	            document.getElementById("error-msgs").innerHTML = data.errors;
+	        }
+	    } catch (error) {
+	        console.log(error);
+	        alert(error.message);
+	    }
+	}
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+}
+
+function isValidPassword(password) {
+    // Regular expression for password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // Test the password against the regex
+    return passwordRegex.test(password);
+}
+
+window.addEventListener("load", start, false);

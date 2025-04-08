@@ -1,9 +1,8 @@
 package com.adminvendor.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +37,7 @@ public class UserService {
 	
 	public Map<String, Object> updatePassword(Map<String, Object> reqData) {
 		Map<String, Object> res = new HashMap<String, Object>();
-		int id= dao.updateUserPassword((int) reqData.get("id"), (String) reqData.get("password"));
+		int id= dao.updateUserPassword((int) reqData.get("id"), PasswordUtil.hashPassword((String) reqData.get("password")));
 		res.put("uid", id);
 		return res;
 	}
@@ -82,5 +81,12 @@ public class UserService {
 		return res;
 	}
 
+	public Map<String, Object> getUserByEmail(String email) {
+		return dao.getUserByEmail(email);
+	}
+	
+	public void saveResetToken(String token, String email) {
+		dao.saveResetToken(token, email);
+	}
 	
 }
